@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kort & Kortlek{% endblock %}
+
+{% block body %}
+<h1>Kort och kortlek</h1>
+
+<p>Länkar till den här uppgiftens sidor:</p>
+<ul>
+    <li><a href="{{ path('card_deck_index') }}">Visa kortleken (sorterad)</a></li>
+    <li><a href="{{ path('card_deck_shuffle') }}">Blanda kortleken</a></li>
+    <li><a href="{{ path('card_deck_draw') }}">Dra ett kort</a></li>
+    <li><a href="{{ path('card_deck_draw_number', {number: 5}) }}">Dra 5 kort</a></li>
+    <li><a href="{{ path('session_index') }}">Debugga sessionen</a></li>
+</ul>
+
+<h2>Klasstruktur</h2>
+<p>
+    <code>Card</code> är ett oföränderligt (readonly) värdeobjekt som representerar
+    ett enskilt kort och består av en <code>Suit</code> och en <code>Rank</code> (enums).
+    <code>Deck</code> äger en samling <code>Card</code>-objekt och innehåller logiken för
+    att blanda, dra och återställa leken. <code>DeckSessionManager</code> ansvarar för
+    att serialisera/deserialisera <code>Deck</code> till och från Symfonys session, så att
+    kontrollern (<code>CardController</code> / <code>DeckController</code>) slipper veta
+    något om hur lagringen fungerar.
+</p>
+
+<div class="mermaid">
+classDiagram
+    class Card {
+        -Suit suit
+        -Rank rank
+        +getSuit() Suit
+        +getRank() Rank
+        +getLabel() string
+    }
+    class Deck {
+        -Card[] cards
+        +shuffle() void
+        +draw() Card
+        +drawMultiple(int) Card[]
+        +count() int
+        +reset() void
+    }
+    class DeckSessionManager {
+        +load(SessionInterface) Deck
+        +save(SessionInterface, Deck) void
+        +sorted(Card[]) Card[]
+    }
+    class Suit {
+        <<enum>>
+    }
+    class Rank {
+        <<enum>>
+    }
+    Deck "1" o-- "0..52" Card
+    Card --> Suit
+    Card --> Rank
+    DeckSessionManager ..> Deck : läser/sparar
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({ startOnLoad: true });</script>
+{% endblock %}

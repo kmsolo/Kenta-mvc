@@ -1,0 +1,7 @@
+{% macro card(card, index) %}
+    <div class="playing-card playing-card--{{ card.suit.value }}" style="--i: {{ index }};">
+        <svg class="playing-card__art" viewBox="0 0 169.075 244.64" width="60" height="84" aria-label="{{ card.label }}">
+            <use href="{{ asset('img/svg-cards-assets/svg-cards.svg') }}#{{ card.imageId }}"></use>
+        </svg>
+    </div>
+{% endmacro %}

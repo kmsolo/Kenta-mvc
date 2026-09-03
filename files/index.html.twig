@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kortlek{% endblock %}
+
+{% block body %}
+<div class="deck-page">
+    <h1>Kortlek ({{ remaining }} kort kvar)</h1>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">{{ message }}</div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="actions">
+        <form method="post" action="{{ path('deck_shuffle') }}">
+            <button type="submit">Blanda</button>
+        </form>
+        <form method="post" action="{{ path('deck_draw') }}">
+            <button type="submit">Dra ett kort</button>
+        </form>
+        <form method="post" action="{{ path('deck_reset') }}">
+            <button type="submit">Återställ kortlek</button>
+        </form>
+    </div>
+
+    <div class="cards">
+        {% for card in cards %}
+            <span class="card card--{{ card.suit.value }}">{{ card }}</span>
+        {% else %}
+            <p>Kortleken är tom.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

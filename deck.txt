@@ -1,0 +1,17 @@
+src/
+  Enum/
+    Suit.php        # Kortfärg (Model)
+    Rank.php        # Kortvalör (Model)
+  Model/
+    Card.php        # Ett enskilt kort (Model)
+    Deck.php        # Kortleken, 52 kort (Model)
+  Controller/
+    DeckController.php   # Hanterar routes /deck, /deck/shuffle, /deck/draw, /deck/reset (Controller)
+templates/
+  deck/
+    index.html.twig # Visar kortleken (View)
+
+    Hur det hänger ihop (MVC)
+Model (Card, Deck, Suit, Rank): all spellogik — att bygga en full lek, blanda, dra kort. Klasserna vet ingenting om HTTP, Twig eller sessioner.
+View (deck/index.html.twig): ren presentation. Får en lista av Card-objekt och antal kvarvarande kort, och renderar dem.
+Controller (DeckController): kopplingen mellan de två. Läser/ skriver tillstånd (här: sessionen, i väntan på databas), anropar Model och skickar resultatet till

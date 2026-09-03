@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}JSON API{% endblock %}
+
+{% block body %}
+<div class="deck-page">
+    <h1>Utforska JSON API</h1>
+    <p class="text-muted">
+        Klicka på "Testa" för att göra ett riktigt anrop mot routen.
+        Svaret visas som JSON direkt under tabellen. Sessionen (cookien)
+        följer med varje anrop, så du kan t.ex. blanda och sedan dra kort
+        i följd och se <code>remaining</code> minska.
+    </p>
+
+    <table class="table table-dark table-striped align-middle">
+        <thead>
+            <tr>
+                <th>Metod</th>
+                <th>Route</th>
+                <th>Beskrivning</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for route in routes %}
+                <tr>
+                    <td><span class="badge {{ 'GET' in route.methods ? 'bg-success' : 'bg-warning text-dark' }}">{{ route.methods|join(', ') }}</span></td>
+                    <td><code>{{ route.path }}</code></td>
+                    <td>{{ route.description }}</td>
+                    <td>
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-outline-light api-test-btn"
+                            data-path="{{ route.path }}"
+                            data-method="{{ route.methods[0] }}"
+                        >
+                            Testa
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2 class="h5 mt-4">Senaste svar</h2>
+    <pre id="api-result" class="bg-black text-white p-3 rounded" style="min-height: 4rem;">Klicka på en "Testa"-knapp ovan för att se svaret här.</pre>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const resultBox = document.getElementById('api-result');
+
+        document.querySelectorAll('.api-test-btn').forEach(function (button) {
+            button.addEventListener('click', async function () {
+                let path = button.dataset.path;
+                const method = button.dataset.method;
+
+                // Routes med {placeholder} i sig (t.ex. /api/deck/draw/{number})
+                // kan inte anropas rakt av - be användaren fylla i värden.
+                const placeholders = path.match(/\{[^}]+\}/g);
+                if (placeholders) {
+                    for (const placeholder of placeholders) {
+                        const name = placeholder.replace(/[{}]/g, '');
+                        const value = window.prompt('Ange värde för "' + name + '":', '1');
+                        if (value === null) {
+                            return; // Användaren avbröt
+                        }
+                        path = path.replace(placeholder, encodeURIComponent(value));
+                    }
+                }
+
+                button.disabled = true;
+                resultBox.textContent = 'Laddar...';
+
+                try {
+                    const response = await fetch(path, {
+                        method: method,
+                        headers: { 'Accept': 'application/json' },
+                    });
+                    const data = await response.json();
+                    resultBox.textContent = method + ' ' + path + '  →  ' + response.status
+                        + '\n\n' + JSON.stringify(data, null, 2);
+                } catch (error) {
+                    resultBox.textContent = 'Fel vid anrop mot ' + path + ': ' + error;
+                } finally {
+                    button.disabled = false;
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

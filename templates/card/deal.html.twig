@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% import 'deck/_card.html.twig' as cards_macro %}
+
+{% block title %}Dela ut kort{% endblock %}
+
+{% block body %}
+<div class="deck-page">
+    <h1>Utdelning ({{ remaining }} kort kvar i leken)</h1>
+
+    {% for player, hand in hands %}
+        <div class="hand mb-4">
+            <h2 class="h5">Spelare {{ player }} ({{ hand|length }} kort)</h2>
+            <div class="cards" style="--total: {{ hand|length }};">
+                {% for card in hand %}
+                    {{ cards_macro.card(card, loop.index0) }}
+                {% else %}
+                    <p>Inga kort kvar att dela ut.</p>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+
+    <p><a href="{{ path('card_deck_index') }}">Tillbaka till kortleken</a></p>
+</div>
+{% endblock %}

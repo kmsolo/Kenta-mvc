@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Om kursen{% endblock %}
+
+{% block body %}
+    <h1>Om kursen MVC</h1>
+    <div class="row">
+        <div class="col-md-8">
+            <p>
+                Kursen mvc handlar om att lära sig bygga webbapplikationer
+                objektorienterat, med fokus på designmönstret MVC
+                (Model-View-Controller). Vi använder ramverket Symfony
+                som bas och lär oss om routing, kontroller, vyer och
+                grundläggande objektorientering i PHP.
+            </p>
+            <p>
+                Läs mer i kursens officiella Git-repo:
+                <a href="https://github.com/dbwebb-se/mvc" target="_blank">dbwebb-se/mvc på GitHub</a>
+            </p>
+            <p>
+                Du hittar min egen kod för kursen här:
+                <a href="https://github.com/kmsolo/me-report" target="_blank">Mitt GitHub-repo</a>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <img src="{{ asset('img/mvc-course.jpg') }}" alt="Illustration av MVC-mönstret" class="img-fluid">
+        </div>
+    </div>
+{% endblock %}
