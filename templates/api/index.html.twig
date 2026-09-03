@@ -24,7 +24,7 @@
         <tbody>
             {% for route in routes %}
                 <tr>
-                    <td><span class="badge {{ 'GET' in route.methods ? 'bg-success' : 'bg-warning text-dark' }}">{{ route.methods|join(', ') }}</span></td>
+                    <td><span class="badge {{ 'GET' in route.methods ? 'bg-success' : 'bg-warning text-dark' }}">{{ route.methods|join(', ') ?: 'ALLA' }}</span></td>
                     <td><code>{{ route.path }}</code></td>
                     <td>{{ route.description }}</td>
                     <td>
@@ -32,7 +32,7 @@
                             type="button"
                             class="btn btn-sm btn-outline-light api-test-btn"
                             data-path="{{ route.path }}"
-                            data-method="{{ route.methods[0] }}"
+                            data-method="{{ route.methods[0] ?? 'GET' }}"
                         >
                             Testa
                         </button>
