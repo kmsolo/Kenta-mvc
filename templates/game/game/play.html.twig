@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% import 'deck/_card.html.twig' as cards_macro %}
+
+{% block title %}Spela 21{% endblock %}
+
+{% block body %}
+<div class="deck-page">
+    <h1>21</h1>
+
+    <h2 class="h5">Din hand ({{ game.playerHand.value }} poäng)</h2>
+    <div class="cards" style="--total: {{ game.playerHand.cards|length }};">
+        {% for card in game.playerHand.cards %}
+            {{ cards_macro.card(card, loop.index0) }}
+        {% endfor %}
+    </div>
+
+    <h2 class="h5 mt-4">Bankens hand ({{ game.bankHand.value }} poäng)</h2>
+    <div class="cards" style="--total: {{ game.bankHand.cards|length }};">
+        {% for card in game.bankHand.cards %}
+            {{ cards_macro.card(card, loop.index0) }}
+        {% else %}
+            <p class="text-muted">Banken har inte spelat än.</p>
+        {% endfor %}
+    </div>
+
+    <div class="mt-4">
+        {% if game.finished %}
+            {% if game.result == 'player_wins' %}
+                <div class="alert alert-success">Du vann! 🎉</div>
+            {% else %}
+                <div class="alert alert-danger">Banken vann.</div>
+            {% endif %}
+
+            <a href="{{ path('game_new') }}" class="btn btn-primary">Spela igen</a>
+        {% else %}
+            <div class="d-flex gap-2">
+                <a href="{{ path('game_hit') }}" class="btn btn-success">Ta ett kort</a>
+                <a href="{{ path('game_stand') }}" class="btn btn-outline-secondary">Stanna</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <p class="mt-4"><a href="{{ path('game_index') }}">&laquo; Tillbaka</a></p>
+</div>
+{% endblock %}

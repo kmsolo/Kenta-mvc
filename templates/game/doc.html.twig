@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dokumentation - Kortspelet 21{% endblock %}
+
+{% block body %}
+<div class="deck-page">
+    <h1>Dokumentation: Kortspelet 21</h1>
+    <p><a href="{{ path('game_index') }}">&laquo; Tillbaka till spelet</a></p>
+
+    <h2>Flödesschema</h2>
+    <p>
+        Grundflödet för en spelrunda: spelaren drar kort och väljer att
+        fortsätta eller stanna, därefter spelar banken enligt en fast regel
+        (drar tills minst 17), och till sist jämförs händerna.
+    </p>
+
+    <div class="mermaid">
+flowchart TD
+    A[Starta ny runda] --> B[Nollställ hand för spelare och bank]
+    B --> C[Spelaren drar ett kort]
+    C --> D{Spelarens hand över 21?}
+    D -- Ja --> E[Banken vinner]
+    D -- Nej --> F{Spelaren väljer}
+    F -- Ta kort --> C
+    F -- Stanna --> G[Bankens tur]
+    G --> H{Bankens hand under 17?}
+    H -- Ja --> I[Banken drar ett kort]
+    I --> H
+    H -- Nej --> J{Banken över 21?}
+    J -- Ja --> K[Spelaren vinner]
+    J -- Nej --> L{Jämför handvärden}
+    L -- Spelare > Bank --> K
+    L -- Bank >= Spelare --> E
+    E --> M[Visa resultat]
+    K --> M
+    M --> N[Starta ny runda?]
+    </div>
+
+    <h2>Pseudokod</h2>
+    <p>Ett par centrala delar av logiken, uttryckt som pseudokod:</p>
+
+    <h3 class="h5">Beräkna handens värde (hantera ess som 1 eller 14)</h3>
+    <pre><code>function beräknaVärde(kort):
+    värde = 0
+    antalEss = 0
+
+    för varje kort i kort:
+        värde += kort.grundvärde   // 2-10 = numret, knekt/dam/kung = 10, ess = 1
+        om kort.är_ess:
+            antalEss += 1
+
+    // Ess räknas som 14 istället för 1 om det inte spräcker handen
+    om antalEss > 0 och värde + 13 <= 21:
+        värde += 13   // ett av essen räknas som 14 istället för 1
+
+    return värde
+</code></pre>
+
+    <h3 class="h5">Bankens spellogik</h3>
+    <pre><code>function bankensTur(bankHand, kortlek):
+    medan beräknaVärde(bankHand) < 17:
+        kort = kortlek.dra()
+        bankHand.läggTill(kort)
+
+    return bankHand
+</code></pre>
+
+    <h3 class="h5">Avgöra vinnare</h3>
+    <pre><code>function avgörVinnare(spelareVärde, bankVärde):
+    om spelareVärde > 21:
+        return "Banken vinner"
+    om bankVärde > 21:
+        return "Spelaren vinner"
+    om spelareVärde > bankVärde:
+        return "Spelaren vinner"
+    return "Banken vinner"   // lika värde -> banken vinner
+</code></pre>
+
+    <h2>Klasser</h2>
+    <p>Vi återanvänder <code>Card</code> och <code>Deck</code> från förra momentet, och lägger till:</p>
+    <ul>
+        <li><strong>Card</strong> – representerar ett enskilt spelkort (färg och valör). Återanvänd, oförändrad.</li>
+        <li><strong>Deck</strong> – en samling kort som kan blandas och dras från. Återanvänd, oförändrad.</li>
+        <li><strong>Hand</strong> – håller de kort en spelare eller banken har på handen just nu, och kan räkna ut handens totala värde (med ess som 1 eller 14) samt avgöra om handen har spruckit.</li>
+        <li><strong>Game</strong> – representerar en pågående spelomgång: kortleken, spelarens hand, bankens hand och vems tur det är. Innehåller reglerna för när spelaren spricker, när banken ska spela, och hur vinnaren avgörs.</li>
+        <li><strong>GameSessionManager</strong> – ansvarar för att spara och läsa tillbaka ett <code>Game</code>-objekt från Symfonys session, på samma sätt som <code>DeckSessionManager</code> gör för kortleken.</li>
+    </ul>
+
+    <h2>UML-klassdiagram <span class="badge bg-secondary">Valfritt</span></h2>
+    <div class="mermaid">
+classDiagram
+    class Card {
+        -Suit suit
+        -Rank rank
+        +getSuit() Suit
+        +getRank() Rank
+        +getLabel() string
+    }
+    class Deck {
+        -Card[] cards
+        +shuffle() void
+        +draw() Card
+        +count() int
+    }
+    class Hand {
+        -Card[] cards
+        +addCard(Card) void
+        +getValue() int
+        +isBust() bool
+    }
+    class Game {
+        -Deck deck
+        -Hand playerHand
+        -Hand bankHand
+        -string status
+        +playerHit() void
+        +playerStand() void
+        +playBank() void
+        +getResult() string
+    }
+    class GameSessionManager {
+        +load(SessionInterface) Game
+        +save(SessionInterface, Game) void
+    }
+    Game "1" *-- "2" Hand
+    Hand "1" o-- "0..*" Card
+    Game "1" *-- "1" Deck
+    Deck "1" o-- "0..52" Card
+    GameSessionManager ..> Game : läser/sparar
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Alla böcker{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">Alla böcker</h1>
+        <a class="btn btn-success" href="{{ path('library_book_new') }}">+ Lägg till bok</a>
+    </div>
+
+    {% if books is empty %}
+        <p>
+            Inga böcker hittades.
+            <a href="{{ path('library_reset') }}">Återställ databasen</a> för att lägga in exempeldata.
+        </p>
+    {% else %}
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Omslag</th>
+                    <th>Titel</th>
+                    <th>Författare</th>
+                    <th>ISBN</th>
+                    <th class="text-end">Åtgärder</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('library_book_show', {id: book.id}) }}">
+                                <img src="{{ book.coverImageUrl }}" alt="Omslag för {{ book.title }}" style="height: 60px;">
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ path('library_book_show', {id: book.id}) }}">{{ book.title }}</a>
+                        </td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.isbn }}</td>
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-primary" href="{{ path('library_book_edit', {id: book.id}) }}">Ändra</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

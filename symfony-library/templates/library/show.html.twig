@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('library_book_list') }}">&larr; Tillbaka till alla böcker</a>
+
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <img src="{{ book.coverImageUrl }}" alt="Omslag för {{ book.title }}" class="img-fluid rounded shadow-sm">
+        </div>
+        <div class="col-md-9">
+            <h1>{{ book.title }}</h1>
+            <p class="text-muted fs-5">av {{ book.author }}</p>
+            <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+
+            {% if book.description %}
+                <p>{{ book.description }}</p>
+            {% endif %}
+
+            <div class="mt-4">
+                <a class="btn btn-primary" href="{{ path('library_book_edit', {id: book.id}) }}">Uppdatera bok</a>
+
+                <form method="post" action="{{ path('library_book_delete', {id: book.id}) }}"
+                      class="d-inline"
+                      onsubmit="return confirm('Är du säker på att du vill radera \'{{ book.title }}\'?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ book.id) }}">
+                    <button class="btn btn-danger" type="submit">Radera bok</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

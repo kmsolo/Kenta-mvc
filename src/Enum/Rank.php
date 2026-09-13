@@ -75,4 +75,16 @@ enum Rank: int
             default => (string) $this->value, // 2–10
         };
     }
+        /**
+     * Kortets värde i spelet 21. Ess räknas som 11 här;
+     * Hand-klassen sänker det till 1 om handen annars skulle spricka.
+     */
+    public function blackjackValue(): int
+    {
+        return match ($this) {
+            self::JACK, self::QUEEN, self::KING => 10,
+            self::ACE => 11,
+            default => $this->value, // 2-10
+        };
+    }
 }

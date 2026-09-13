@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kortspelet 21{% endblock %}
+
+{% block body %}
+<div class="deck-page">
+    <h1>Kortspelet 21</h1>
+
+    <p>
+        21 spelas mellan dig och banken. Målet är att komma så nära ett
+        sammanlagt korvärde av <strong>21</strong> som möjligt, utan att gå
+        över. Den som kommer närmast 21 utan att spräcka det vinner rundan.
+    </p>
+
+    <h2 class="h4">Regler i korthet</h2>
+    <ul>
+        <li>Du och banken får kort från en och samma kortlek.</li>
+        <li>Kortens värde: 2–10 är värda sitt nummer, knekt/dam/kung är värda 10, ess är värt 1 eller 14 (det som gynnar handen mest utan att gå över 21).</li>
+        <li>Du drar kort och väljer efter varje kort om du vill <em>ta ett till</em> eller <em>stanna</em>.</li>
+        <li>Går du över 21 ("spricker") vinner banken direkt.</li>
+        <li>När du stannar tar banken kort tills den har minst 17, eller tills den spricker.</li>
+        <li>Den som är närmast 21 utan att gå över vinner. Lika värde ger banken vinsten.</li>
+    </ul>
+
+    <p>
+        Vill du se hur vi har problemlöst och strukturerat koden för spelet?
+        Läs <a href="{{ path('game_doc') }}">dokumentationen för spelet</a>.
+    </p>
+
+    <a href="{{ path('game_play') }}" class="btn btn-primary btn-lg">Starta spelet</a>
+</div>
+{% endblock %}

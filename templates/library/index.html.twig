@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bibliotek{% endblock %}
+
+{% block body %}
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <h1 class="display-5 fw-bold">📚 Bibliotek</h1>
+        <p class="col-md-8 fs-5">
+            Välkommen till bibliotekshanteraren. Här kan du lägga till, visa,
+            uppdatera och radera böcker. Just nu finns <strong>{{ bookCount }}</strong>
+            {{ bookCount == 1 ? 'bok' : 'böcker' }} registrerade.
+        </p>
+        <a class="btn btn-primary btn-lg me-2" href="{{ path('library_book_list') }}">Visa alla böcker</a>
+        <a class="btn btn-success btn-lg me-2" href="{{ path('library_book_new') }}">Lägg till ny bok</a>
+        <a class="btn btn-outline-secondary btn-lg" href="{{ path('library_reset') }}"
+           onclick="return confirm('Detta raderar alla nuvarande böcker och återställer databasen till ursprungligt innehåll. Fortsätt?');">
+            Återställ databas
+        </a>
+    </div>
+{% endblock %}
