@@ -1,0 +1,33 @@
+build:
+  environment:
+    php:
+      version: "8.4"
+
+  dependencies:
+    before:
+      - composer install --no-interaction --prefer-dist
+
+  nodes:
+    analysis:
+      tests:
+        override:
+          - php-scrutinizer-run
+
+    tests-and-coverage:
+      tests:
+        override:
+          - command: vendor/bin/phpunit --coverage-clover=coverage.xml
+            coverage:
+              file: coverage.xml
+              format: clover
+
+filter:
+  paths:
+    - "src/*"
+  excluded_paths:
+    - "vendor/*"
+    - "var/*"
+    - "tests/*"
+
+checks:
+  php: true
