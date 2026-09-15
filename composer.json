@@ -7,25 +7,25 @@
     "php": ">=8.4",
     "ext-ctype": "*",
     "ext-iconv": "*",
-    "doctrine/doctrine-bundle": "^3.3",
-    "doctrine/doctrine-migrations-bundle": "^4.0",
-    "doctrine/orm": "^3.6",
-    "phpdocumentor/reflection-docblock": "^6.0",
-    "phpstan/phpdoc-parser": "^2.3",
+    "doctrine/doctrine-bundle": "^3.3.2",
+    "doctrine/doctrine-migrations-bundle": "^4.0.1",
+    "doctrine/orm": "^3.7.1",
+    "phpdocumentor/reflection-docblock": "^6.0.3",
+    "phpstan/phpdoc-parser": "^2.3.5",
     "symfony/asset": "8.1.*",
     "symfony/asset-mapper": "8.1.*",
     "symfony/console": "8.1.*",
     "symfony/doctrine-messenger": "8.1.*",
     "symfony/dotenv": "8.1.*",
     "symfony/expression-language": "8.1.*",
-    "symfony/flex": "^2",
+    "symfony/flex": "^2.11",
     "symfony/form": "8.1.*",
     "symfony/framework-bundle": "8.1.*",
     "symfony/http-client": "8.1.*",
     "symfony/intl": "8.1.*",
     "symfony/mailer": "8.1.*",
     "symfony/mime": "8.1.*",
-    "symfony/monolog-bundle": "^3.0|^4.0",
+    "symfony/monolog-bundle": "^3.0|^4.1",
     "symfony/notifier": "8.1.*",
     "symfony/process": "8.1.*",
     "symfony/property-access": "8.1.*",
@@ -41,8 +41,30 @@
     "symfony/validator": "8.1.*",
     "symfony/web-link": "8.1.*",
     "symfony/yaml": "8.1.*",
-    "twig/extra-bundle": "^2.12|^3.0",
-    "twig/twig": "^2.12|^3.0"
+    "twig/extra-bundle": "^2.12|^3.24",
+    "twig/twig": "^2.12|^3.28",
+    "friendsofphp/php-cs-fixer": "^3.95.25",
+    "phpmetrics/phpmetrics": "^2.11",
+    "phpstan/phpstan": "^2.2.14",
+    "phpunit/phpunit": ">=13.3.3",
+    "symfony/browser-kit": "8.1.*",
+    "symfony/css-selector": "8.1.*",
+    "symfony/debug-bundle": "8.1.*",
+    "symfony/maker-bundle": "^1.68",
+    "symfony/stopwatch": "8.1.*",
+    "symfony/web-profiler-bundle": "8.1.*"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.95.25",
+    "phpmetrics/phpmetrics": "^2.11",
+    "phpstan/phpstan": "^2.2.14",
+    "phpunit/phpunit": ">=13.3.3",
+    "symfony/browser-kit": "8.1.*",
+    "symfony/css-selector": "8.1.*",
+    "symfony/debug-bundle": "8.1.*",
+    "symfony/maker-bundle": "^1.68",
+    "symfony/stopwatch": "8.1.*",
+    "symfony/web-profiler-bundle": "8.1.*"
   },
   "config": {
     "allow-plugins": {
@@ -77,7 +99,22 @@
   },
   "scripts": {
     "phpunit": [
-      "vendor/bin/phpunit --configuration=phpunit.dist.xml"
+      "vendor/bin/phpunit --configuration=phpunit.dist.xml --no-coverage"
+    ],
+    "coverage": [
+      "vendor/bin/phpunit --configuration=phpunit.dist.xml --coverage-html var/coverage"
+    ],
+    "csfix": [
+      "vendor/bin/php-cs-fixer fix src --rules=@PSR12"
+    ],
+    "lint": [
+      "vendor/bin/phpstan analyse src --level=5"
+    ],
+    "phpdoc": [
+      "php phpDocumentor.phar -d src -t var/phpdoc"
+    ],
+    "metrics": [
+      "vendor/bin/phpmetrics --report-html=var/metrics src"
     ],
     "auto-scripts": {
       "cache:clear": "symfony-cmd",
@@ -90,23 +127,5 @@
     "post-update-cmd": [
       "@auto-scripts"
     ]
-  },
-  "conflict": {
-    "symfony/symfony": "*"
-  },
-  "extra": {
-    "symfony": {
-      "allow-contrib": false,
-      "require": "8.1.*"
-    }
-  },
-  "require-dev": {
-    "phpunit/phpunit": "*",
-    "symfony/browser-kit": "8.1.*",
-    "symfony/css-selector": "8.1.*",
-    "symfony/debug-bundle": "8.1.*",
-    "symfony/maker-bundle": "^1.0",
-    "symfony/stopwatch": "8.1.*",
-    "symfony/web-profiler-bundle": "8.1.*"
   }
 }

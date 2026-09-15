@@ -1,18 +1,16 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class CardController extends AbstractController
+class MetricsController extends AbstractController
 {
-    #[Route('/card', name: 'card_index', methods: ['GET'])]
+    #[Route('/metrics', name: 'metrics')]
     public function index(): Response
     {
-        return $this->render('card/index.html.twig');
+        return $this->render('metrics/index.html.twig');
     }
 }

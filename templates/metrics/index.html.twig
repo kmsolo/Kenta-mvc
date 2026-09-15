@@ -1,0 +1,196 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Metrics analys{% endblock %}
+
+{% block body %}
+    <h1 class="mb-3">Metrics-analys &mdash; kodkvalitet &amp; Clean Code</h1>
+    <p class="lead">
+        En analys av kodkvaliteten i det här projektet med hjälp av Phpmetrics och
+        Scrutinizer CI, utgående från de sex C:na (6C): Codestyle, Coverage, Complexity,
+        Cohesion, Coupling och CRAP.
+    </p>
+
+    <hr class="my-4">
+
+    <h2 id="introduktion">Introduktion</h2>
+    <p>
+        De sex C:na är sex olika mått som tillsammans ger en bild av kodens kvalitet.
+        Ingen av dem ger hela sanningen på egen hand &mdash; men tillsammans pekar de ut
+        var koden är stark och var den har förbättringspotential.
+    </p>
+    <dl class="row">
+        <dt class="col-sm-2">Codestyle</dt>
+        <dd class="col-sm-10">
+            Hur väl koden följer en konsekvent kodstandard (t.ex. PSR-12). Mäts av
+            linters som PHP_CodeSniffer / PHP-CS-Fixer. Bra codestyle gör koden lättare
+            att läsa och granska &mdash; den säger inget om logiken är korrekt, bara att
+            den är enhetligt skriven.
+        </dd>
+
+        <dt class="col-sm-2">Coverage</dt>
+        <dd class="col-sm-10">
+            Andel av koden som körs av automatiska tester (rader/grenar). Mäts av PHPUnit
+            med code coverage-rapport. Hög coverage minskar risken att en ändring
+            introducerar en bugg som ingen märker.
+        </dd>
+
+        <dt class="col-sm-2">Complexity</dt>
+        <dd class="col-sm-10">
+            Cyklomatisk komplexitet &mdash; antal oberoende vägar genom en metod (varje
+            <code>if</code>, <code>switch</code>, <code>loop</code> ökar talet). Hög
+            komplexitet gör metoden svårare att förstå, testa och underhålla.
+        </dd>
+
+        <dt class="col-sm-2">Cohesion</dt>
+        <dd class="col-sm-10">
+            Hur väl en klass metoder och properties hör ihop och samverkar mot samma
+            syfte (ofta mätt som LCOM &mdash; Lack of Cohesion of Methods). Låg cohesion
+            (dvs. lågt LCOM-värde) är bra: det betyder att klassen gör "en sak".
+        </dd>
+
+        <dt class="col-sm-2">Coupling</dt>
+        <dd class="col-sm-10">
+            Hur beroende klasser är av varandra (in- och utgående beroenden). Hög
+            coupling gör att en ändring i en klass lätt spiller över och kräver ändringar
+            på många andra ställen.
+        </dd>
+
+        <dt class="col-sm-2">CRAP</dt>
+        <dd class="col-sm-10">
+            <em>Change Risk Analysis and Predictions</em> &mdash; kombinerar komplexitet
+            och testtäckning till ett riskvärde. Komplex kod utan tester ger högt
+            CRAP-värde och är riskabel att ändra i.
+        </dd>
+    </dl>
+
+    <div class="alert alert-light border">
+        <strong>Exempel från min egen kod:</strong>
+        <p class="mb-0">
+            Fyll i 1&ndash;2 konkreta exempel härifrån, t.ex: "Klassen
+            <code>Fyll i klassnamn</code> hade ett CRAP-värde på
+            <span class="badge bg-secondary">Fyll i</span> eftersom metoden
+            <code>Fyll i metodnamn</code> saknade tester och hade en cyklomatisk
+            komplexitet på <span class="badge bg-secondary">Fyll i</span>."
+        </p>
+    </div>
+
+    <hr class="my-4">
+
+    <h2 id="phpmetrics">Phpmetrics</h2>
+    <p>
+        Rapporten är genererad lokalt med <code>composer metrics</code> (phpmetrics).
+        Nedan är de svagaste punkterna jag hittade i min kod, kopplade till 6C.
+    </p>
+
+    <div class="text-center my-3">
+        <img src="{{ asset('img/phpmetrics-oversikt.png') }}"
+     alt="Översikt från Phpmetrics-rapporten"
+     class="img-fluid border rounded"
+     style="max-width: 90%;">
+        <p class="text-muted"><small>Fyll i bildtext: vad visar bilden?</small></p>
+    </div>
+
+    <h3 class="h5 mt-4">Svaghet 1: Fyll i klass/metod</h3>
+    <p>
+        Fyll i vilket mätvärde som var dåligt (t.ex. Complexity, Coupling eller CRAP),
+        vilken siffra det handlade om och varför du tror det ser ut så &mdash; koppla till
+        rätt C.
+    </p>
+
+    <h3 class="h5 mt-4">Svaghet 2: Fyll i klass/metod</h3>
+    <p>
+        Fyll i på samma sätt som ovan.
+    </p>
+
+    <h3 class="h5 mt-4">Svaghet 3: Fyll i klass/metod</h3>
+    <p>
+        Fyll i på samma sätt som ovan.
+    </p>
+
+    <hr class="my-4">
+
+    <h2 id="scrutinizer">Scrutinizer</h2>
+    <p>
+        Rapporten kommer från Scrutinizer CI, kopplat till repot på GitHub. Badges nedan
+        visar build-status, testtäckning och kvalitetsindex direkt från Scrutinizer
+        (samma badges finns även i projektets
+        <a href="https://github.com/" target="_blank" rel="noopener">README.md</a>).
+    </p>
+
+    <p class="my-3">
+        {# Ersätt "ditt-användarnamn/ditt-repo" med din riktiga Scrutinizer-sökväg #}
+        <a href="https://scrutinizer-ci.com/g/ditt-användarnamn/ditt-repo/build-status/main">
+            <img src="https://scrutinizer-ci.com/g/ditt-användarnamn/ditt-repo/badges/build.png?b=main" alt="Build Status">
+        </a>
+        <a href="https://scrutinizer-ci.com/g/ditt-användarnamn/ditt-repo/?branch=main">
+            <img src="https://scrutinizer-ci.com/g/ditt-användarnamn/ditt-repo/badges/coverage.png?b=main" alt="Code Coverage">
+        </a>
+        <a href="https://scrutinizer-ci.com/g/ditt-användarnamn/ditt-repo/?branch=main">
+            <img src="https://scrutinizer-ci.com/g/ditt-användarnamn/ditt-repo/badges/quality-score.png?b=main" alt="Scrutinizer Code Quality">
+        </a>
+    </p>
+
+    <h3 class="h5 mt-4">Fynd 1: Fyll i</h3>
+    <p>Fyll i mätvärde, siffra och koppling till rätt C (t.ex. Coupling eller Coverage).</p>
+
+    <h3 class="h5 mt-4">Fynd 2: Fyll i</h3>
+    <p>Fyll i på samma sätt.</p>
+
+    <h3 class="h5 mt-4">Fynd 3: Fyll i</h3>
+    <p>Fyll i på samma sätt.</p>
+
+    <hr class="my-4">
+
+    <h2 id="forbattringar">Förbättringar</h2>
+    <p>
+        Utifrån analysen ovan valde jag att genomföra följande förbättringar. För varje
+        punkt beskriver jag vad jag gjorde, varför, och hur jag trodde det skulle påverka
+        mätvärdena &mdash; följt av vad som faktiskt hände.
+    </p>
+
+    <div class="table-responsive mb-4">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Förbättring</th>
+                    <th>Varför</th>
+                    <th>Mätvärde före</th>
+                    <th>Mätvärde efter</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Fyll i, t.ex. "Bröt ut metod X"</td>
+                    <td>Fyll i motivering</td>
+                    <td><span class="badge bg-secondary">Fyll i</span></td>
+                    <td><span class="badge bg-success">Fyll i</span></td>
+                </tr>
+                <tr>
+                    <td>Fyll i</td>
+                    <td>Fyll i</td>
+                    <td><span class="badge bg-secondary">Fyll i</span></td>
+                    <td><span class="badge bg-success">Fyll i</span></td>
+                </tr>
+                <tr>
+                    <td>Fyll i</td>
+                    <td>Fyll i</td>
+                    <td><span class="badge bg-secondary">Fyll i</span></td>
+                    <td><span class="badge bg-success">Fyll i</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr class="my-4">
+
+    <h2 id="diskussion">Diskussion</h2>
+    <p>
+        Fyll i en kort avslutande diskussion som svarar på:
+    </p>
+    <ul>
+        <li>Kan man aktivt jobba med kodkvalitet och "clean code" på det här sättet?</li>
+        <li>Vilka fördelar och nackdelar såg du med att jobba mätvärdesdrivet?</li>
+        <li>Ser du andra sätt att jobba mot "clean code" som inte fångas av dessa verktyg?</li>
+    </ul>
+
+{% endblock %}

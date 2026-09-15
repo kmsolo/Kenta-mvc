@@ -75,7 +75,7 @@ enum Rank: int
             default => (string) $this->value, // 2–10
         };
     }
-        /**
+    /**
      * Kortets värde i spelet 21. Ess räknas som 11 här;
      * Hand-klassen sänker det till 1 om handen annars skulle spricka.
      */
