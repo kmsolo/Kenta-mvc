@@ -55,6 +55,7 @@
     "symfony/web-profiler-bundle": "8.1.*"
   },
   "require-dev": {
+    "doctrine/doctrine-fixtures-bundle": "^4.3",
     "friendsofphp/php-cs-fixer": "^3.95.25",
     "phpmetrics/phpmetrics": "^2.11",
     "phpstan/phpstan": "^2.2.14",

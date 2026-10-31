@@ -1,0 +1,33 @@
+{% extends 'proj/base_proj.html.twig' %}
+
+{% block title %}Prylkatalogen{% endblock %}
+
+{% block body %}
+    <div class="proj-hero">
+        <h1>Prylkatalogen <span class="proj-accent-text">⚙️</span></h1>
+        <p>
+            En katalog över tech-prylar &mdash; mobiler, datorer, ljud och tillbehör.
+            Just nu finns <strong>{{ gadgetCount }}</strong>
+            {{ gadgetCount == 1 ? 'pryl' : 'prylar' }} registrerade i databasen.
+            Bläddra, lägg till, ändra och betygsätt din egen samling.
+        </p>
+        <a class="proj-btn proj-btn-solid" href="{{ path('proj_gadget_index') }}">Bläddra bland prylar</a>
+        <a class="proj-btn" href="{{ path('proj_gadget_new') }}">Lägg till en pryl</a>
+        <a class="proj-btn proj-btn-muted" href="{{ path('proj_about') }}">Om projektet</a>
+    </div>
+
+    {% if highlighted is not empty %}
+        <h2>Utvalda prylar</h2>
+        <div class="proj-grid">
+            {% for gadget in highlighted %}
+                <a class="proj-card" href="{{ path('proj_gadget_show', {id: gadget.id}) }}" style="display:block;">
+                    <div class="proj-card-icon">{{ gadget.categoryIcon }}</div>
+                    <h3>{{ gadget.name }}</h3>
+                    <div class="proj-brand-tag">{{ gadget.brand }} &middot; {{ gadget.releaseYear }}</div>
+                    <div class="proj-stars">{{ gadget.stars }}</div>
+                    <div class="proj-price">{{ gadget.price|number_format(0, ',', ' ') }} kr</div>
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

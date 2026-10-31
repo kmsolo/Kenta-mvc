@@ -83,10 +83,12 @@
     </p>
 
     <div class="text-center my-3">
-        <img src="{{ asset('img/phpmetrics-oversikt.png') }}"
-     alt="Översikt från Phpmetrics-rapporten"
-     class="img-fluid border rounded"
-     style="max-width: 90%;">
+        {# Byt ut mot en riktig skärmdump från din phpmetrics-rapport, t.ex.
+           public/images/phpmetrics-oversikt.png #}
+        <img src="{{ asset('images/phpmetrics-oversikt.png') }}"
+             alt="Översikt från Phpmetrics-rapporten"
+             class="img-fluid border rounded"
+             style="max-width: 90%;">
         <p class="text-muted"><small>Fyll i bildtext: vad visar bilden?</small></p>
     </div>
 
@@ -111,33 +113,61 @@
 
     <h2 id="scrutinizer">Scrutinizer</h2>
     <p>
-        Rapporten kommer från Scrutinizer CI, kopplat till repot på GitHub. Badges nedan
-        visar build-status, testtäckning och kvalitetsindex direkt från Scrutinizer
-        (samma badges finns även i projektets
-        <a href="https://github.com/" target="_blank" rel="noopener">README.md</a>).
+        Repot är kopplat till Scrutinizer CI
+        (<a href="https://scrutinizer-ci.com/g/kmsolo/Kenta-mvc" target="_blank" rel="noopener">scrutinizer-ci.com/g/kmsolo/Kenta-mvc</a>),
+        men jag kunde inte få fram fullständiga Code Quality- och Code Coverage-badges
+        &mdash; se motivering nedan. Det här avsnittet redovisar därför både vad jag
+        <em>försökte</em> göra och vad jag lärde mig av att det inte gick hela vägen.
     </p>
 
-    <p class="my-3">
-        {# Ersätt "ditt-användarnamn/ditt-repo" med din riktiga Scrutinizer-sökväg #}
-        <a href="https://scrutinizer-ci.com/g/ditt-användarnamn/ditt-repo/build-status/main">
-            <img src="https://scrutinizer-ci.com/g/ditt-användarnamn/ditt-repo/badges/build.png?b=main" alt="Build Status">
-        </a>
-        <a href="https://scrutinizer-ci.com/g/ditt-användarnamn/ditt-repo/?branch=main">
-            <img src="https://scrutinizer-ci.com/g/ditt-användarnamn/ditt-repo/badges/coverage.png?b=main" alt="Code Coverage">
-        </a>
-        <a href="https://scrutinizer-ci.com/g/ditt-användarnamn/ditt-repo/?branch=main">
-            <img src="https://scrutinizer-ci.com/g/ditt-användarnamn/ditt-repo/badges/quality-score.png?b=main" alt="Scrutinizer Code Quality">
-        </a>
+    <div class="alert alert-warning">
+        <h3 class="h5">Infrastrukturbegränsning: Scrutinizer stödjer inte PHP 8.4/8.5 fullt ut</h3>
+        <p>
+            Projektet kräver PHP &ge;8.4.1 (Symfony 8.1 och hela dess beroendekedja).
+            Scrutinizers byggmiljö kunde dock inte köra det:
+        </p>
+        <ol>
+            <li>
+                Att be Scrutinizer kompilera PHP 8.4 från källkod misslyckades &mdash;
+                deras miljö har en föråldrad OpenSSL (1.1.0g) som inte uppfyller
+                PHP:s eget krav (&ge;1.1.1).
+            </li>
+            <li>
+                Att istället köra mot en äldre, förbyggd PHP-version (8.2) misslyckades
+                av motsatt skäl: projektets <code>composer.lock</code> kräver PHP &ge;8.4.1
+                rakt igenom hela beroendeträdet (Symfony, PHPUnit, Doctrine m.fl.).
+            </li>
+            <li>
+                Ett försök att kringgå detta genom att köra tester i en egen
+                Docker-container med PHP 8.4 (via <code>docker: remote_engine: true</code>)
+                löste PHP-versionsproblemet för testkörningen, men Scrutinizers egen
+                analysnod (<code>php-scrutinizer-run</code>) körs i en separat,
+                icke-Docker-baserad standardmiljö med en föråldrad Composer 1-installation
+                som inte kan hantera moderna Composer-plugins (t.ex. <code>symfony/runtime</code>).
+            </li>
+        </ol>
+        <p class="mb-0">
+            Detta är alltså inte ett fel i min kod, utan en genuin begränsning i
+            Scrutinizers plattform för nya PHP-versioner &mdash; en insikt jag inte hade
+            fått utan att faktiskt försöka koppla ihop verktygen. Jag valde att inte
+            fortsätta jaga en Docker-lösning även för analysnoden, eftersom det hade
+            krävt att bygga om hela Scrutinizer-miljön i praktiken.
+        </p>
+    </div>
+
+    <h3 class="h5 mt-4">Vad jag använder istället</h3>
+    <p>
+        Eftersom Coverage inte kunde hämtas från Scrutinizer använder jag min lokala
+        PHPUnit + Xdebug-körning istället (se <a href="#phpmetrics">Phpmetrics</a> och
+        min lokala coverage-rapport i <code>var/coverage/index.html</code>) för att
+        redovisa <strong>Coverage</strong> under 6C. Fyll i din faktiska
+        täckningsprocent här när du genererat rapporten:
     </p>
-
-    <h3 class="h5 mt-4">Fynd 1: Fyll i</h3>
-    <p>Fyll i mätvärde, siffra och koppling till rätt C (t.ex. Coupling eller Coverage).</p>
-
-    <h3 class="h5 mt-4">Fynd 2: Fyll i</h3>
-    <p>Fyll i på samma sätt.</p>
-
-    <h3 class="h5 mt-4">Fynd 3: Fyll i</h3>
-    <p>Fyll i på samma sätt.</p>
+    <p>
+        <span class="badge bg-secondary">Fyll i lokal coverage-%</span>
+        för klasserna <code>Game</code>, <code>Hand</code>, <code>Deck</code> och
+        <code>Card</code> (se <code>tests/Model/</code>).
+    </p>
 
     <hr class="my-4">
 

@@ -1,0 +1,33 @@
+{% extends 'proj/base_proj.html.twig' %}
+
+{% block title %}{{ gadget.name }} &ndash; Prylkatalogen{% endblock %}
+
+{% block body %}
+    <a href="{{ path('proj_gadget_index') }}">&larr; Tillbaka till alla prylar</a>
+
+    <div class="proj-detail" style="margin-top:1.5rem;">
+        <div class="proj-detail-icon">{{ gadget.categoryIcon }}</div>
+        <div class="proj-detail-body">
+            <span class="proj-tag">{{ gadget.category }}</span>
+            <h1>{{ gadget.name }}</h1>
+            <p class="proj-brand-tag">{{ gadget.brand }} &middot; lanserad {{ gadget.releaseYear }}</p>
+            <div class="proj-stars" style="font-size:1.3rem;">{{ gadget.stars }}</div>
+            <p class="proj-price" style="font-size:1.4rem;">{{ gadget.price|number_format(0, ',', ' ') }} kr</p>
+
+            {% if gadget.description %}
+                <p>{{ gadget.description }}</p>
+            {% endif %}
+
+            <div style="margin-top:1.5rem;">
+                <a class="proj-btn proj-btn-solid" href="{{ path('proj_gadget_edit', {id: gadget.id}) }}">Uppdatera pryl</a>
+
+                <form method="post" action="{{ path('proj_gadget_delete', {id: gadget.id}) }}"
+                      style="display:inline;"
+                      onsubmit="return confirm('Är du säker på att du vill radera \'{{ gadget.name }}\'?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ gadget.id) }}">
+                    <button class="proj-btn proj-btn-danger" type="submit" style="font-family: var(--proj-font-heading);">Radera pryl</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

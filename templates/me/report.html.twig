@@ -15,4 +15,97 @@
 
     <h2 id="kmom02">Kmom02 - Kommer senare</h2>
     <p>Text för kommande moment läggs till här.</p>
+    <section id="kmom10" class="section">
+    <h2>Kmom10 – Projekt och examination</h2>
+
+    <!-- Krav 1, 2, 3: Grundläggande webbplats -->
+    <div class="course-grid">
+        <div class="course-card completed" style="grid-column: 1 / -1; justify-self: center; max-width: 700px;">
+            <h2>Krav 1–3 <span class="badge badge-done">✓ Webbplats</span></h2>
+            <h3>Grundläggande projektstruktur</h3>
+            <div class="hours">⏱️ Ca 20 studietimmar</div>
+            <ul>
+                <li><strong>Landningssida:</strong> Jag skapade <code>/proj</code> med egen navbar och design som skiljer sig från report-sidan.</li>
+                <li><strong>About-sida:</strong> Jag byggde <code>/proj/about</code> som presenterar mitt projekt (t.ex. library-app/prylkatalog/cardgame).</li>
+                <li><strong>Repo &amp; dokumentation:</strong> Jag lade till README.md med badges (Scrutinizer: build, coverage, quality), instruktioner för att starta projektet, och uppdaterade <code>docs/</code> med phpdoc och phpmetrics.</li>
+                <li><strong>Kodtäckning:</strong> Jag strävade efter &gt;90% kodtäckning och exkluderade irrelevanta filer.</li>
+                <li><strong>Redovisning:</strong> Jag beskrev min projektidé, designval och skrev min TIL för kmom10.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Krav 4: JSON API (optionellt) -->
+    <div class="course-grid">
+        <div class="course-card completed" style="grid-column: 1 / -1; justify-self: center; max-width: 700px;">
+            <h2>Krav 4 <span class="badge badge-done">✓ JSON API</span></h2>
+            <h3>RESTful API med 5+ routes</h3>
+            <div class="hours">⏱️ Ca 10 studietimmar</div>
+            <ul>
+                <li><strong>API-sida:</strong> Jag skapade <code>/proj/api</code> där man kan testa alla endpoints.</li>
+                <li><strong>Routes:</strong> Jag implementerade minst 5 JSON-routes (varav 1 POST), t.ex.:
+                    <ul>
+                        <li><code>GET /proj/api/items</code> – lista alla objekt</li>
+                        <li><code>POST /proj/api/items</code> – skapa nytt objekt</li>
+                        <li><code>GET /proj/api/items/{id}</code> – hämta ett objekt</li>
+                        <li><code>PUT /proj/api/items/{id}</code> – uppdatera ett objekt</li>
+                        <li><code>DELETE /proj/api/items/{id}</code> – ta bort ett objekt</li>
+                    </ul>
+                </li>
+                <li><strong>Testning:</strong> Jag testade API:et via webbläsaren och Postman/curl.</li>
+                <li><strong>Redovisning:</strong> Jag beskrev API-designen, vilka routes jag valde och varför.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Krav 5: ORM / Databas (optionellt) -->
+    <div class="course-grid">
+        <div class="course-card completed" style="grid-column: 1 / -1; justify-self: center; max-width: 700px;">
+            <h2>Krav 5 <span class="badge badge-done">✓ ORM / Databas</span></h2>
+            <h3>Databas med minst 2 tabeller</h3>
+            <div class="hours">⏱️ Ca 15 studietimmar</div>
+            <ul>
+                <li><strong>ER-diagram:</strong> Jag skapade ett ER-diagram och lade till det på <code>/proj/about/database</code>.</li>
+                <li><strong>Tabeller:</strong> Jag använde minst 2 tabeller (t.ex. <code>items</code> och <code>categories</code>).</li>
+                <li><strong>ORM:</strong> Jag använde Doctrine ORM för att mappa entiteter till databasen.</li>
+                <li><strong>Relationer:</strong> Jag beskrev hur jag löste relationer mellan tabellerna (t.ex. ManyToOne, OneToMany).</li>
+                <li><strong>Databastyp:</strong> Jag använde SQLite (eller MariaDB) och beskrev fördelar/nackdelar jämfört med ren SQL/PDO.</li>
+                <li><strong>Enhetstester:</strong> Jag testade mot databasen och beskrev hur det gick med Scrutinizer.</li>
+                <li><strong>Redovisning:</strong> Jag skrev ~15 meningar om ORM vs SQL/PDO från databaskursen.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Krav 6: Avancerade features (optionellt) -->
+    <div class="course-grid">
+        <div class="course-card completed" style="grid-column: 1 / -1; justify-self: center; max-width: 700px;">
+            <h2>Krav 6 <span class="badge badge-done">✓ Avancerade features</span></h2>
+            <h3>3–5 utmanande features</h3>
+            <div class="hours">⏱️ Ca 10 studietimmar</div>
+            <ul>
+                <li><strong>Feature 1:</strong> [Beskriv en utmanande del, t.ex. autentisering, bilduppladdning, sök/filter]</li>
+                <li><strong>Feature 2:</strong> [Beskriv en annan utmanande del]</li>
+                <li><strong>Feature 3:</strong> [Beskriv en tredje utmanande del]</li>
+                <li><strong>Redovisning:</strong> Jag förklarade varför dessa features var utmanande och hur jag löste dem.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Reflektion -->
+    <div class="personal">
+        <h3>Reflektion över projektet</h3>
+        <p>
+            [Här skriver du ett allmänt stycke om hur projektet gick att genomföra: problem/lösningar/strul/enkelt/svårt/snabbt/lång tid.
+            Var projektet lätt eller svårt? Tog det lång tid? Vad var svårt och vad gick lätt?
+            Var det ett bra och rimligt projekt för denna kursen?]
+        </p>
+
+        <h3>Reflektion över kursen</h3>
+        <p>
+            [Här skriver du dina tankar om kursen och vad du anser om materialet och handledningen (ca 5–10 meningar).
+            Ge feedback till lärarna och föreslå eventuella förbättringsförslag.
+            Är du nöjd/missnöjd? Kommer du att rekommendera kursen?
+            På en skala 1–10, vilket betyg ger du kursen?]
+        </p>
+    </div>
+</section>
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'proj/base_proj.html.twig' %}
+
+{% block title %}Uppdatera {{ gadget.name }} &ndash; Prylkatalogen{% endblock %}
+
+{% block body %}
+    <h1>Uppdatera pryl</h1>
+    <div class="proj-card-icon">{{ gadget.categoryIcon }}</div>
+
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.brand) }}
+        {{ form_row(form.category) }}
+        {{ form_row(form.releaseYear) }}
+        {{ form_row(form.price) }}
+        {{ form_row(form.rating) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.save) }}
+    {{ form_end(form) }}
+
+    <p><a href="{{ path('proj_gadget_show', {id: gadget.id}) }}">Avbryt och gå tillbaka</a></p>
+{% endblock %}

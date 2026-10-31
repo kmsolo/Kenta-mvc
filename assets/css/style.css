@@ -1,0 +1,503 @@
+/* =========================================================
+   Grund
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  background-color: #9c9;
+  overflow-y: scroll;
+}
+
+body {
+  margin: 8px auto;
+  padding: 8px;
+  width: 90%;
+  max-width: 1200px;
+  min-height: calc(100vh - 16px);
+  background-color: #eee;
+  border-radius: 10px;
+  color: #222;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================================
+   Header
+   ========================================================= */
+
+.site-header {
+  margin-bottom: 3px;
+  padding: 10px;
+  background-color: azure;
+  overflow: auto;
+  border-radius: 10px;
+}
+
+.site-header img {
+  float: left;
+  margin-right: 10px;
+}
+
+.site-title {
+  display: block;
+  padding-top: 0.6em;
+  padding-left: 50px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.site-slogan {
+  display: block;
+  padding-left: 50px;
+  font-style: italic;
+  color: #555;
+}
+
+/* =========================================================
+   Navigation
+   ========================================================= */
+
+.navbar {
+  padding: 1em;
+  background-color: beige;
+  border-top: 1px solid #9c9;
+  border-bottom: 1px solid #9c9;
+  border-radius: 10px;
+}
+
+.navbar a {
+  display: inline-block;
+  margin: 0.2em 0.1em;
+  padding: 0.5em 1em;
+  border: 1px solid #999;
+  border-radius: 6px;
+  background-color: #f7f7f7;
+  color: #222;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  background-color: bisque;
+  font-style: italic;
+}
+
+.navbar .selected {
+  background-color: #ccc;
+  font-weight: bold;
+}
+
+/* =========================================================
+   Huvudinnehåll
+   ========================================================= */
+
+main {
+  flex: 1 0 auto;
+  width: 98%;
+
+  margin: 2px auto 0 auto;
+  padding: 5px;
+  border-radius: 20px;
+}
+
+.content,
+.site-me,
+article {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+h1 {
+  margin-top: 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #999;
+}
+
+h2 {
+  margin-top: 20px;
+  padding-bottom: 4px;
+  font-size: 24px;
+  border-bottom: 1px solid #999;
+}
+
+h3 {
+  margin-top: 20px;
+  padding-bottom: 4px;
+  font-size: 20px;
+  border-bottom: 1px solid #999;
+}
+h4 {
+  margin-top: 20px;
+  padding-bottom: 4px;
+  font-size: 18px;
+  border-bottom: 1px solid #999;
+}
+
+.bio-figure {
+  float: left;
+  width: 110px;
+  margin: 0 1rem 1rem 0;
+}
+
+.bio-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.bio-figure figcaption {
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: 0.3rem;
+  color: #666;
+}
+
+.content::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* =========================================================
+   Byline
+   ========================================================= */
+
+.byline {
+  margin: 16px 0;
+  padding: 8px 12px 6px 12px;
+  overflow: auto;
+  clear: both;
+  border: 1px solid #ddd;
+  background: linear-gradient(to right, #fff 0%, #fff 60%, #dff0df 100%);
+}
+
+.byline .figure {
+  margin: 0 14px 0 0;
+  border: none;
+  float: left;
+  width: 50px;
+  text-align: center;
+}
+
+.byline .figure img {
+  display: block;
+  width: 50px;
+  height: auto;
+  border-radius: 2px;
+}
+
+.byline .figure figcaption {
+  margin-top: 2px;
+  font-size: 0.8em;
+  font-style: italic;
+  line-height: 1;
+  color: #111;
+}
+
+.byline p {
+  margin: 0;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  color: #456b45;
+  line-height: 1.3;
+}
+
+.byline p::first-letter {
+  font-size: 3.2em;
+  font-weight: bold;
+  color: #5f8f5f;
+  line-height: 0.8;
+  float: left;
+  padding-right: 2px;
+}
+
+/* /
+/* =========================================================
+   Footer
+   ========================================================= */
+
+footer.footer {
+  flex-shrink: 0;
+  margin-top: auto;
+  padding: 0 1em 1em 1em;
+  border-radius: 10px;
+  background: linear-gradient(to bottom, #666, #000);
+  color: #fff;
+  overflow: auto;
+  width: 100%;
+}
+
+footer.footer a {
+  color: #fff;
+}
+
+footer.footer a:hover {
+  color: lime;
+  text-decoration: none;
+}
+
+footer.footer .box h4 {
+  margin-top: 0;
+  border-bottom: 2px solid #fff;
+}
+
+footer.footer .final {
+  text-align: center;
+}
+
+footer.footer .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+footer.footer .col3 {
+  flex: 1;
+}
+
+footer.footer .col1 {
+  width: 100%;
+}
+
+.top-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: #222;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  display: none;
+  z-index: 1000;
+}
+
+.top-btn.show {
+  display: block;
+}
+
+/* =========================================================
+   Listor och tabeller
+   ========================================================= */
+
+ul {
+  padding-left: 1.4em;
+}
+
+li {
+  margin-bottom: 0.4em;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  padding: 10px;
+  background-color: #fff;
+  text-align: center;
+  border-bottom: solid 3px black;
+}
+
+td.section {
+  background-color: #efefef;
+}
+
+/* =========================================================
+   Övrigt
+   ========================================================= */
+
+pre {
+  padding: 5px;
+  white-space: pre-wrap;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+/* ========================================================
+Kurstext 
+===========================================================*/
+.course-text {
+  margin-block: 2rem;
+  padding: 1.25rem;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.course-text section {
+  margin-top: 1.5rem;
+}
+
+.course-text h1 {
+  margin-bottom: 1rem;
+}
+
+.course-text h2 {
+  margin-bottom: 0.5rem;
+}
+
+.course-text p,
+.course-text ul {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.course-text ul {
+  padding-left: 1.25rem;
+}
+
+.toc {
+  margin: 1rem 0 2rem;
+  padding: 1rem;
+  background: #f7f7f7;
+  border: 1px solid #9a9696;
+  border-radius: 8px;
+}
+
+.toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+}
+
+.toc a {
+  text-decoration: none;
+}
+
+.course-text section {
+  margin-top: 1.5rem;
+}
+.lab-section {
+  margin-top: 2rem;
+  padding: 1.25rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.lab-section h2 {
+  margin-bottom: 0.75rem;
+}
+
+.lab-section p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.lab-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.lab-tabs a {
+  display: inline-block;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  text-decoration: none;
+  background: #f7f7f7;
+  color: inherit;
+}
+
+.lab-tabs a:hover {
+  background: #e9e9e9;
+}
+
+.lab-frame {
+  width: 100%;
+  min-height: 600px;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  background: #fff;
+}
+.python-demo {
+  margin-top: 2rem;
+  padding: 1.25rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.python-demo h2 {
+  margin-bottom: 0.75rem;
+}
+
+.python-demo p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.python-demo button {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+}
+
+.python-demo button:hover {
+  background: #1d4ed8;
+}
+
+.demo-output {
+  margin-top: 1rem;
+  padding: 1rem;
+  min-height: 120px;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  overflow: auto;
+}
+
+/* =========================================================
+   Responsivt
+   ========================================================= */
+
+@media (max-width: 980px) {
+  body {
+    width: auto;
+    min-height: 100vh;
+    background-color: yellow;
+  }
+
+  main {
+    max-width: 100%;
+  }
+
+  .navbar a {
+    display: bloc;
+  }
+
+  footer.footer .row {
+    flex-direction: column;
+  }
+}

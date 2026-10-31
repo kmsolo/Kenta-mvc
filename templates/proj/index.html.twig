@@ -1,0 +1,36 @@
+{% extends 'proj/base_proj.html.twig' %}
+
+{% block title %}Alla prylar &ndash; Prylkatalogen{% endblock %}
+
+{% block body %}
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <h1 style="margin:0;">Alla prylar</h1>
+        <div>
+            <a class="proj-btn proj-btn-solid" href="{{ path('proj_gadget_new') }}">+ Lägg till pryl</a>
+            <a class="proj-btn proj-btn-muted" href="{{ path('proj_reset') }}"
+            
+               onclick="return confirm('Detta raderar alla nuvarande prylar och återställer katalogen till ursprungligt innehåll. Fortsätt?');">
+                Återställ katalog
+            </a>
+        </div>
+    </div>
+
+    {% if gadgets is empty %}
+        <p style="margin-top:1.5rem;">
+            Inga prylar hittades.
+            <a href="{{ path('proj_reset') }}">Återställ katalogen</a> för att lägga in exempeldata.
+        </p>
+    {% else %}
+        <div class="proj-grid">
+            {% for gadget in gadgets %}
+                <a class="proj-card" href="{{ path('proj_gadget_show', {id: gadget.id}) }}" style="display:block;">
+                    <div class="proj-card-icon">{{ gadget.categoryIcon }}</div>
+                    <h3>{{ gadget.name }}</h3>
+                    <div class="proj-brand-tag">{{ gadget.brand }} &middot; {{ gadget.category }} &middot; {{ gadget.releaseYear }}</div>
+                    <div class="proj-stars">{{ gadget.stars }}</div>
+                    <div class="proj-price">{{ gadget.price|number_format(0, ',', ' ') }} kr</div>
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

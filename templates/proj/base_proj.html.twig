@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Prylkatalogen{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/proj.css') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
+</head>
+<body class="proj-body">
+
+    <nav class="proj-navbar">
+        <a class="proj-brand" href="{{ path('proj_home') }}">⚙️ Prylkatalogen</a>
+        <div class="proj-nav-links">
+            <a href="{{ path('proj_home') }}"{% if app.request.attributes.get('_route') == 'proj_home' %} class="is-active"{% endif %}>Hem</a>
+            <a href="{{ path('proj_about') }}"{% if app.request.attributes.get('_route') == 'proj_about' %} class="is-active"{% endif %}>Om projektet</a>
+            <a href="{{ path('proj_gadget_index') }}"{% if app.request.attributes.get('_route') starts with 'proj_gadget' %} class="is-active"{% endif %}>Alla prylar</a>
+            <a href="{{ path('proj_gadget_new') }}">+ Lägg till pryl</a>
+            <a href="https://dbwebbyearone.ddev.site:8443/mvc/">MVC</a>
+        </div>
+    </nav>
+
+    <main class="proj-container">
+        {% for message in app.flashes('success') %}
+            <div class="proj-flash">{{ message }}</div>
+        {% endfor %}
+
+        {% block body %}{% endblock %}
+    </main>
+
+    <footer class="proj-footer">
+        <span class="proj-accent-text">Prylkatalogen</span> &mdash; slutprojekt i MVC-kursen, byggt med Symfony &amp; Doctrine
+        <br>
+        <a href="{{ path('app_report') }}">&larr; Tillbaka till redovisningen</a>
+        
+    </footer>
+
+</body>
+</html>

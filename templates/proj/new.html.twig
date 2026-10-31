@@ -1,0 +1,20 @@
+{% extends 'proj/base_proj.html.twig' %}
+
+{% block title %}Lägg till pryl &ndash; Prylkatalogen{% endblock %}
+
+{% block body %}
+    <h1>Lägg till ny pryl</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.brand) }}
+        {{ form_row(form.category) }}
+        {{ form_row(form.releaseYear) }}
+        {{ form_row(form.price) }}
+        {{ form_row(form.rating) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.save) }}
+    {{ form_end(form) }}
+
+    <p><a href="{{ path('proj_gadget_index') }}">Avbryt och gå tillbaka</a></p>
+{% endblock %}

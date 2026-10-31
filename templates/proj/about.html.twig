@@ -1,0 +1,36 @@
+{% extends 'proj/base_proj.html.twig' %}
+
+{% block title %}Om projektet &ndash; Prylkatalogen{% endblock %}
+
+{% block body %}
+    <h1>Om projektet</h1>
+    <p>
+        <strong>Prylkatalogen</strong> är mitt slutgiltiga projekt i MVC-kursen.
+        Det är en enkel webbapplikation där man kan lägga till, visa, uppdatera
+        och radera tech-prylar &mdash; allt från mobiler och datorer till
+        hörlurar och smart hem-produkter.
+    </p>
+    <p>
+        Projektet är byggt med <strong>Symfony</strong> och följer
+        MVC-mönstret: varje pryl representeras av en <em>entity</em>
+        (<code>Gadget</code>) som lagras i en databas via Doctrine ORM,
+        en <em>controller</em> (<code>ProjController</code>) hanterar
+        routing och logik, och Twig-mallar renderar vyerna.
+    </p>
+    <p>
+        Till skillnad från redovisningsdelen av webbplatsen har det här
+        projektet en egen design, navbar, typsnitt och färgschema &mdash;
+        helt fristående från resten av sajten.
+    </p>
+
+    <h2>Funktioner</h2>
+    <ul>
+        <li>Lista alla prylar i ett rutnät med ikon, betyg och pris</li>
+        <li>Visa detaljerad information om en specifik pryl</li>
+        <li>Lägga till nya prylar via ett formulär</li>
+        <li>Uppdatera befintliga prylar</li>
+        <li>Radera prylar (med bekräftelse och CSRF-skydd)</li>
+    </ul>
+
+    <a class="proj-btn proj-btn-solid" href="{{ path('proj_gadget_index') }}">Se katalogen</a>
+{% endblock %}
